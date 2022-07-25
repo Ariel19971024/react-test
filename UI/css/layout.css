@@ -1,0 +1,163 @@
+/* Login */
+/* header start */
+.content-header{
+    height:132px;
+    background-color: #fff;
+    position: relative;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.frame-logo{
+    position: absolute;
+    width:132px;
+    height:60px;
+    margin: 36px 90px;
+    background-image: url(../assets/logo.png);
+    background-size: cover;
+    background-color:gray;
+}
+.frame-buttons{
+    float: right;
+    margin: 46px 90px;
+    display: flex;
+}
+.frame-button{
+    width:115px;
+    height: 40px;
+    background-color: #fff;
+    margin-left: 24px;
+}
+.frame-button-entry{
+    background-color:#FFFFFF ;
+    border:solid 1px #013B81;
+    color:#013B81;
+}
+.frame-button-custom{
+    background-color:#013B81 ;
+    color:#fff;
+}
+/* header end */
+
+/* detail start */
+.content-details{
+    height:283px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inner-title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+}
+.inner-title span{
+    width:217px;
+    height:40px;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 40px;
+}
+.inner-content{
+    width:800px;
+    height: 40px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+/* detail end */
+/* end */
+
+/* informations */
+/* start */
+.content-informations{
+    height:780px;
+    background-color: #F2F2F2;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+/* cards start */
+.cards-group{
+    max-width: 1200px;
+    display:flex;
+    flex-wrap: wrap;
+    /* 多的會往下掉 */
+}
+.card-item{
+    width:380px;
+    height:300px;
+    background-color:#fff;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.card-item-details-date{
+    height:20px;
+    width:130px;
+    font-weight:600;
+    font-size: 14px;
+    line-height: 19.6px;
+    margin:20px 22px;
+    color:#01254F;
+}
+.card-item-details-topic{
+    height:44px;
+    width:229px;
+    font-weight:600;
+    font-size: 16px;
+    line-height: 22.4px;
+    margin:10px 22px;
+    color:#01254F;
+}
+.card-item-details-contents{
+    height:60px;
+    width:240px;
+    font-weight:300;
+    font-size: 14px;
+    line-height: 19.6px;
+    margin:2px 22px;
+    color:#01254F;
+}
+.card-item-details-time{
+    height:20px;
+    width:128px;
+    font-weight:300;
+    font-size: 14px;
+    line-height: 19.6px;
+    margin:16px 22px;
+    color:#01254F;
+}
+.card-item-details-bottom{
+    width:100%;
+    height:44px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-item-details-bottom-registry{
+    width:101px;
+    height:20px;
+    font-weight:600;
+    font-size: 14px;
+    line-height: 19.6px;
+    color: #43AA15;
+    margin-left: 20px;
+}
+.card-item-details-bottom-icon{
+    width:22px;
+    height:22px;
+    margin:20px;
+}
+/* cards end */
+/* end */
+
+/* registry */
+/* start */
+.content-registry{
+    height:1318px;
+    background-color:green;
+}
+/* end */
