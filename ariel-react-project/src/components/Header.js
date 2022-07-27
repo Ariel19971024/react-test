@@ -1,9 +1,9 @@
 import { NavLink,useLocation } from "react-router-dom";
 function Header(){
     const location=useLocation().pathname;
-    console.log(location)
     const logOutHandler=()=>{
         sessionStorage.clear();
+        alert("Logout Succeeded")
         window.location.reload();
     }
     return(

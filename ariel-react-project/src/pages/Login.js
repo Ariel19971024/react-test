@@ -2,7 +2,8 @@ import {auth} from "../api/api.js"
 import axios from 'axios'
 import React ,{useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-function Login(){
+function Login(props){
+    const{loadingHandler}=props
     const [formData, setFormData] = useState({account:"",password:""});
     const [validation, setValidation] = useState(false);
     const [errorMsg, setErrorMsg] = useState(false);
@@ -24,6 +25,7 @@ function Login(){
                 email:formData.account,
                 password:formData.password,
             }
+            loadingHandler.open()
             let res=await auth(body);
             sessionStorage.setItem("token",`bearer ${res.data.auth.access_token}`)
             axios.defaults.headers.common['Authorization'] = `bearer ${res.data.auth.access_token}`;
@@ -31,6 +33,8 @@ function Login(){
         }catch(e){
            setErrorMsg(true)
            console.log(e)
+        }finally{
+            loadingHandler.close()
         }
     }
     return(
