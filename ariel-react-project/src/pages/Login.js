@@ -47,20 +47,19 @@ function Login(props){
                         </div>
                         <div className="registry-submit">
                             <div className="form-input required-field">
-                                <div className="form-input-title">Account</div>
+                                <div className="form-input-title">Email</div>
                                 <div className={`form-input-field ${errorMsg?'error-input':''}`}><input type="text" field="account" onChange={changeHandler} /></div>
-                                {errorMsg?<div className="field-error">error!</div>:null}
                             </div>
                             <div className="form-input required-field">
                                 <div className="form-input-title">Password</div>
                                 <div className={`form-input-field ${errorMsg?'error-input':''}`}><input  field="password" onChange={changeHandler}/></div>
-                                {errorMsg?<div className="field-error">error!</div>:null}
+                                {errorMsg?<div className="field-error">Invalid email or password!</div>:null}
                             </div>
                             <div className="form-input">
                                 <div className={
                                         validation ? "form-input-field" : "disabled-button"
                                 }>
-                                    <button onClick={loginHandler}>Login</button>
+                                    <button onClick={loginHandler} disabled={!validation}>Login</button>
                                 </div>
                             </div>
                         </div>
