@@ -12,7 +12,8 @@ function registryForm(props){
     })()
     const registryHandler=async()=>{
         try{
-            await postFavourite("9827")
+            let url="/me/user/favourite/post-analysis/9827"
+            await postFavourite(url)
         }catch(e){
             console.log(e)
         }
