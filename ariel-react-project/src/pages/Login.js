@@ -3,7 +3,7 @@ import axios from 'axios'
 import React ,{useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 function Login(props){
-    const{loadingHandler}=props
+    const{loadingHandler}=props //control loading
     const [formData, setFormData] = useState({account:"",password:""});
     const [validation, setValidation] = useState(false);
     const [errorMsg, setErrorMsg] = useState(false);

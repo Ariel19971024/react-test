@@ -1,11 +1,13 @@
 import axios from 'axios'
 const service = axios.create({
-    baseUrl: process.env.NODE_ENV === 'production' ? process.env.PORT : ""
+    baseURL: "https://g1api.finlogix.com/v1",  
 })
+const addConfigBeforeRequest = (config) => {
+    config.headers = { ...config.headers, Authorization: sessionStorage.getItem("token") }
+    return config;
+}
 service.interceptors.request.use(
-    success=>{
-        return success;
-    },
+    addConfigBeforeRequest,
     err=>{
         alert("Error");
         return err;

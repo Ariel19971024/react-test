@@ -17,7 +17,7 @@ function App() {
     <Header/>
     <div className="main-content">
     <Routes>
-    <Route path="/" element={<Homepage />} />
+    <Route path="/" element={<Homepage loadingHandler={{open:openLoading,close:closeLoading}}/>} />
     <Route path="/login" element={<Login loadingHandler={{open:openLoading,close:closeLoading}}/>} />
     </Routes>
     </div>
