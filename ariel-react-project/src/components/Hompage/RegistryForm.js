@@ -1,3 +1,4 @@
+import { postFavourite} from "../../api/api.js";
 function registryForm(props){
     const {topics} =props;
     console.log(topics)
@@ -5,10 +6,17 @@ function registryForm(props){
         return topics.map(card=>{
             return {
                 title:card.title,
-                value:card.title
+                value:card.post_id,
             }
         })
     })()
+    const registryHandler=async()=>{
+        try{
+            await postFavourite("9827")
+        }catch(e){
+            console.log(e)
+        }
+    }
     return(
         <div className="content-registry">
         <div className="registry-area">
@@ -30,8 +38,8 @@ function registryForm(props){
                 <div className="form-input-title">Topic</div>
                 <div className="form-input-field">
                   <select>
-                   {topicDdl.map(option=>{
-                       return (<option value={option.value}>{option.title}</option>)
+                   {topicDdl.map((option,index)=>{
+                       return (<option value={option.value} key={`option-${index}`}>{option.title}</option>)
                    })}
                   </select>
                 </div>
@@ -56,7 +64,7 @@ function registryForm(props){
               </div>
               <div className="form-input">
                 <div className="form-input-field">
-                  <button>Register</button>
+                  <button onClick={registryHandler}>Register</button>
                 </div>
               </div>
             </div>

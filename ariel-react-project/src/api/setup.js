@@ -3,7 +3,7 @@ const service = axios.create({
     baseURL: "https://g1api.finlogix.com/v1",  
 })
 const addConfigBeforeRequest = (config) => {
-    config.headers = { ...config.headers, Authorization: sessionStorage.getItem("token") }
+    config.headers = { ...config.headers, Authorization: sessionStorage.getItem("token"),["Content-Type"]: "application/x-www-form-urlencoded"}
     return config;
 }
 service.interceptors.request.use(

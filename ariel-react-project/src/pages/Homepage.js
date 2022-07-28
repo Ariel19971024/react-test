@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getUnLoginList,getLoginList } from "../api/api.js";
+import {useNavigate} from 'react-router-dom';
 import RegistryForm from "../components/Hompage/RegistryForm.js"
 function Homepage(props) {
   const{loadingHandler}=props //control loading
@@ -7,6 +8,7 @@ function Homepage(props) {
   const [webinarsAllList, setwebinarsAllList] = useState([]);
   const [page, setPage] = useState(0);
   const isLogin=sessionStorage.getItem("token");
+  const navigate=useNavigate();
   useEffect(() => {
     let showList=webinarsAllList.slice(page*6,page*6+6)
     if(!showList.length){
@@ -49,8 +51,14 @@ function Homepage(props) {
     }finally{
       loadingHandler.close();
     }
-
   };
+  const registryHandler=()=>{
+    if(isLogin){
+    window.scrollTo({top:1195,behavior:'smooth'})
+    }else{
+      navigate("/login")
+    }
+  }
   return (
     <div>
       <div className="content-details">
@@ -85,7 +93,7 @@ function Homepage(props) {
                 </div>
                 <div className="card-item-details-time">{card.cardFormateTime}</div>
                 <div className="card-item-details-bottom">
-                  <div className="card-item-details-bottom-registry">
+                  <div className="card-item-details-bottom-registry" onClick={registryHandler}>
                     Register Now
                   </div>
                   <div className="card-item-details-bottom-icon"></div>

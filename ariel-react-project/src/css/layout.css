@@ -149,6 +149,11 @@ margin: 0;
     font-size: 14px;
     line-height: 19.6px;
     color: #43AA15;
+    cursor: pointer;
+}
+.card-item-details-bottom-registry:hover{
+    border-bottom: solid 1px #43AA15;
+
 }
 .card-item-details-bottom-icon{
     width:22px;
