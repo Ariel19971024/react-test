@@ -3,18 +3,24 @@ import { getUnLoginList } from "../api/api.js";
 function Homepage() {
   const [webinarsList, setWebinarsList] = useState([]);
   const [webinarsAllList, setwebinarsAllList] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
-    if (sessionStorage.getItem("token")) {
-      //
-    } else {
-      fetchDataUnLogin();
+    let showList=webinarsAllList.slice(page*6,page*6+6)
+    if(!showList.length){
+      if (sessionStorage.getItem("token")) {
+        //
+      } else {
+        fetchDataUnLogin();
+      }
+    }else{
+      setWebinarsList(showList);
     }
-  }, []);
+
+  }, [page]);
   
   const fetchDataUnLogin = async () => {
-    let params = { params: { per_page: 12, page: 1 } };
+    let params = { params: { per_page: 12, page: (page+2)/2 } };
     let res = await getUnLoginList(params);
     let resList = res.data.data.map((card)=>{
         card.content=JSON.parse(card.content).blocks.reduce((acc,cur)=>{
@@ -23,21 +29,10 @@ function Homepage() {
         },"")
         return card;
     });
-    setwebinarsAllList(resList);
-    let showList=resList.slice(0,6)
+    setwebinarsAllList([...webinarsAllList,...resList]);
+    let showList=[...webinarsAllList,...resList].slice(page*6,page*6+6)
     setWebinarsList(showList);
-    // console.log(webinarsList);
   };
-  const plus=()=>{
-    setPage(page+1);
-    let nextPage=webinarsAllList.slice((page-1)*6,(page-1)*6+6);
-    setWebinarsList(nextPage);
-  }
-  const minus=()=>{
-    setPage(page-1);
-    let prevPage=webinarsAllList.slice((page-1)*6,(page-1)*6+6);
-    setWebinarsList(prevPage);
-  }
   return (
     <div>
       <div className="content-details">
@@ -48,7 +43,7 @@ function Homepage() {
           <div className="inner-content">
             <span>
               Whether you are new to foreign exchange trading or already have
-              some market experience, we{" "}
+              some market experience, we
             </span>
             <span>
               believe that a solid FX trading education is vital to your success
@@ -81,8 +76,8 @@ function Homepage() {
             );
           })}
         </div>
-        <button onClick={minus}>prev</button>
-        <button onClick={plus}>next</button>
+        {page?<button onClick={()=>setPage(page-1)}>prev</button>:null}
+        <button onClick={()=>setPage(page+1)}>next</button>
       </div>
 
       <div className="content-registry">
