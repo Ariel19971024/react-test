@@ -3,10 +3,14 @@ margin: 0;
 }
 /* Homepage */
 /* header start */
+.header-container{
+    height:132px;
+}
 .content-header{
     height:132px;
+    width:100%;
     background-color: #fff;
-    position: relative;
+    position:fixed;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 .frame-logo{
@@ -87,6 +91,7 @@ margin: 0;
     max-width: 1200px;
     display:flex;
     flex-wrap: wrap;
+    
     /* 多的會往下掉 */
 }
 .card-item{
@@ -107,7 +112,6 @@ margin: 0;
 }
 .card-item-details-topic{
     height:44px;
-    width:229px;
     margin:10px 22px;
     font-weight:600;
     font-size: 16px;
@@ -116,7 +120,6 @@ margin: 0;
 }
 .card-item-details-contents{
     height:60px;
-    width:240px;
     margin:2px 22px;
     overflow-y: scroll;
     font-weight:300;
@@ -159,6 +162,26 @@ margin: 0;
     width:22px;
     height:22px;
     margin:20px;
+}
+.icon-class{
+    padding: 15px;
+    margin: auto;
+    opacity: 0.6;
+    background-color:rgb(206, 206, 206);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.icon-class:hover{
+    background-color:rgb(206, 206, 206);
+    opacity: 0.5;
+    transform:scale(1.1);
+}
+.no-icon-class{
+    padding: 25px;
+    margin: auto;
+    opacity: 0.6;
+    border-radius: 50%;
+    cursor: pointer;
 }
 /* cards end */
 /* end */

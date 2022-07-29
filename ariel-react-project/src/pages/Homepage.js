@@ -80,6 +80,9 @@ function Homepage(props) {
       </div>
 
       <div className="content-informations">
+        <div className={page?"icon-class":"no-icon-class"}>
+          {page?<span className="material-icons" onClick={()=>setPage(page-1)}>arrow_back</span>:null}
+        </div>
         <div className="cards-group">
           {webinarsList.map((card, index) => {
             return (
@@ -102,10 +105,12 @@ function Homepage(props) {
             );
           })}
         </div>
-        {page?<button onClick={()=>setPage(page-1)}>prev</button>:null}
         {/* after login there's no need to call api to make pagination */}
-        {isLogin && (webinarsAllList.length/6>(page+1))?<button onClick={()=>setPage(page+1)}>next</button>:null}
-        {!isLogin?<button onClick={()=>setPage(page+1)}>next</button>:null}
+        <div className={!isLogin?"icon-class":"no-icon-class"}>
+         {isLogin && (webinarsAllList.length/6>(page+1))?<span className="material-icons" onClick={()=>setPage(page+1)}>arrow_forward</span>:null}
+        {!isLogin?<span className="material-icons" onClick={()=>setPage(page+1)}>arrow_forward</span>:null}
+        </div>
+
       </div>
           <RegistryForm topics={webinarsAllList} loading={loadingHandler} />
     </div>

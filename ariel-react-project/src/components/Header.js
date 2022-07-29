@@ -7,6 +7,7 @@ function Header(){
         window.location.reload();
     }
     return(
+    <div className="header-container">
         <div className="content-header">
             <div className="frame-logo"></div>
             <div className="frame-buttons">
@@ -15,6 +16,7 @@ function Header(){
                 {sessionStorage.getItem('token')?<button className="frame-button frame-button-entry" onClick={logOutHandler}>Logout</button>:null}
             </div>
         </div>
+    </div>
     )
 }
 export default Header;
