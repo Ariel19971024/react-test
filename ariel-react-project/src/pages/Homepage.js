@@ -5,7 +5,7 @@ import RegistryForm from "../components/Hompage/RegistryForm.js"
 function Homepage(props) {
   const{loadingHandler}=props //control loading
   const [webinarsList, setWebinarsList] = useState([]);
-  const [webinarsAllList, setwebinarsAllList] = useState([]);
+  const [webinarsAllList, setWebinarsAllList] = useState([]);
   const [page, setPage] = useState(0);
   const isLogin=sessionStorage.getItem("token");
   const navigate=useNavigate();
@@ -13,7 +13,7 @@ function Homepage(props) {
     let showList=webinarsAllList.slice(page*6,page*6+6)
     if(!showList.length){
       if (isLogin) {
-        setwebinarsAllList([]);
+        setWebinarsAllList([]);
         fetchData(getLoginList);
       } else {
         fetchData(getUnLoginList,{ params: { per_page: 12, page: (page+2)/2 } });
@@ -25,7 +25,6 @@ function Homepage(props) {
   }, [page]);
 
   const fetchData = async (fn,params) => {
-    //let params = { params: { per_page: 12, page: (page+2)/2 } };
     try{
       loadingHandler.open();    
       let res = await fn(params);
@@ -33,7 +32,7 @@ function Homepage(props) {
       //reformate time
       let dd = new Date(card.created_at);
       dd.setDate(dd.getDate() + 10);
-      let [y,m,d,hh,mm]=[dd.getFullYear(),dd.getMonth()+1,dd.getDate(),dd.getHours(),dd.getMinutes()]
+      let [y,m,d,hh,mm]=[dd.getFullYear(),dd.getMonth()+1,dd.getDate(),dd.getHours().toString().padStart(2, '0'),dd.getMinutes().toString().padStart(2, '0')]
       card.cardFormateTime=`${y}/${m}/${d} ${hh}:${mm}`
       // reformate content
       card.content=JSON.parse(card.content).blocks.reduce((acc,cur)=>{
@@ -42,7 +41,7 @@ function Homepage(props) {
       },"")
       return card;
     });
-    setwebinarsAllList([...webinarsAllList,...resList]);
+    setWebinarsAllList([...webinarsAllList,...resList]);
     let showList=[...webinarsAllList,...resList].slice(page*6,page*6+6)
     setWebinarsList(showList);
 
@@ -59,6 +58,7 @@ function Homepage(props) {
       navigate("/login")
     }
   }
+
   return (
     <div>
       <div className="content-details">
@@ -107,7 +107,7 @@ function Homepage(props) {
         {isLogin && (webinarsAllList.length/6>(page+1))?<button onClick={()=>setPage(page+1)}>next</button>:null}
         {!isLogin?<button onClick={()=>setPage(page+1)}>next</button>:null}
       </div>
-          <RegistryForm topics={webinarsAllList}/>
+          <RegistryForm topics={webinarsAllList} loading={loadingHandler} />
     </div>
   );
 }

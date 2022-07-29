@@ -1,77 +1,166 @@
-import { postFavourite} from "../../api/api.js";
-function registryForm(props){
-    const {topics} =props;
-    console.log(topics)
-    const topicDdl=(()=>{
-        return topics.map(card=>{
-            return {
-                title:card.title,
-                value:card.post_id,
-            }
-        })
-    })()
-    const registryHandler=async()=>{
-        try{
-            let url="/me/user/favourite/post-analysis/9827"
-            await postFavourite(url)
-        }catch(e){
-            console.log(e)
-        }
+import { postFavourite } from "../../api/api.js";
+import Validation from "../../common/Validation.js";
+import React ,{useState} from 'react';
+const isNotEmpty = (value) => value.trim() !== "";
+function RegistryForm(props) {
+  const { topics,loading } = props;
+  const [topicVal, setTopicVal] = useState("");
+  const {
+    value: fname,
+    isValid: nameIsValid,
+    hasError: fNameError,
+    onChangeValue: onChangefName,
+    onBlurValue: onBlurfName,
+    reset: resetName,
+  } = Validation(isNotEmpty);
+  const {
+    value: lastName,
+    isValid: lastNameIsValid,
+    hasError: lastNameError,
+    onChangeValue: onChangelastName,
+    onBlurValue: onBlurlastName,
+    reset: resetlastName,
+  } = Validation(isNotEmpty);
+  const {
+    value: email,
+    isValid: emailIsValid,
+    hasError: emailError,
+    onChangeValue: onChangeEmailName,
+    onBlurValue: onBlurEmailName,
+    reset: resetEmail,
+  } = Validation(isNotEmpty);
+  const fNameInputClasses = `form-input-field ${
+    fNameError ? "error-input" : ""
+  }`;
+  const lastNameInputClasses = `form-input-field ${
+    lastNameError ? "error-input" : ""
+  }`;
+  const emailInputClasses = `form-input-field ${
+    emailError ? "error-input" : ""
+  }`;
+  const isDisabled=(nameIsValid && lastNameIsValid && emailIsValid)?false:true; 
+  const topicDdl = (() => {
+    return topics.map((card) => {
+      return {
+        title: card.title,
+        value: card.post_id,
+      };
+    });
+  })();
+  const registryHandler = async () => {
+    try {
+      loading.open();
+      let url = `/me/user/favourite/post-analysis/${topicVal}`;
+      await postFavourite(url);
+    } catch (e) {
+      console.log(e);
+    }finally{
+      window.scrollTo({top:424,behavior:'smooth'})
+      clearData();
+      loading.close();
     }
-    return(
-        <div className="content-registry">
-        <div className="registry-area">
-          <div className="registry-form">
-            <div className="registry-header">
-              <div className="registry-header-title">
-                <span>Register for a Webinar now</span>
-              </div>
-              <div className="registry-header-subtitle">
-                <span>
-                  Please fill in the form below and you will be contacted by one
-                  of our
-                </span>
-                <span>professional business experts.</span>
+  };
+  const clearData=()=>{
+    resetName();
+    resetlastName();
+    resetEmail();
+  }
+  return (
+    <div className="content-registry">
+      <div className="registry-area">
+        <div className="registry-form">
+          <div className="registry-header">
+            <div className="registry-header-title">
+              <span>Register for a Webinar now</span>
+            </div>
+            <div className="registry-header-subtitle">
+              <span>
+                Please fill in the form below and you will be contacted by one
+                of our
+              </span>
+              <span>professional business experts.</span>
+            </div>
+          </div>
+          <div className="registry-submit">
+            <div className="form-input">
+              <div className="form-input-title">Topic</div>
+              <div className="form-input-field">
+                <select  onChange={(e)=>{setTopicVal(e.target.value)}}>
+                  <option value="" >choose one</option>
+                  {topicDdl.map((option, index) => {
+                    return (
+                      <option value={option.value} key={`option-${index}`}>
+                        {option.title}
+                      </option>
+                    );
+                  })}
+                </select>
               </div>
             </div>
-            <div className="registry-submit">
-              <div className="form-input">
-                <div className="form-input-title">Topic</div>
-                <div className="form-input-field">
-                  <select>
-                   {topicDdl.map((option,index)=>{
-                       return (<option value={option.value} key={`option-${index}`}>{option.title}</option>)
-                   })}
-                  </select>
-                </div>
-              </div>
-              <div className="form-input required-field">
+            <div className="form-input required-field">
+              <div className="form-title-area">
                 <div className="form-input-title">First Name</div>
-                <div className="form-input-field">
-                  <input type="text" />
-                </div>
+                {fNameError ? (
+                  <div className="field-error">
+                    (First Name must not be empty.)
+                  </div>
+                ) : null}
               </div>
-              <div className="form-input required-field">
+
+              <div className={fNameInputClasses}>
+                <input
+                  type="text"
+                  onChange={onChangefName}
+                  onBlur={onBlurfName}
+                  value={fname}
+                />
+              </div>
+            </div>
+            <div className="form-input required-field">
+              <div className="form-title-area">
                 <div className="form-input-title">Last Name</div>
-                <div className="form-input-field">
-                  <input type="text" />
-                </div>
+                {lastNameError ? (
+                  <div className="field-error">
+                    (Last Name must not be empty.)
+                  </div>
+                ) : null}
               </div>
-              <div className="form-input required-field">
+              <div className={lastNameInputClasses}>
+                <input
+                  type="text"
+                  onChange={onChangelastName}
+                  onBlur={onBlurlastName}
+                  value={lastName}
+                />
+              </div>
+            </div>
+            <div className="form-input required-field">
+              <div className="form-title-area">
                 <div className="form-input-title">Email</div>
-                <div className="form-input-field">
-                  <input type="text" />
-                </div>
+                {emailError ? (
+                  <div className="field-error">(Email must not be empty.)</div>
+                ) : null}
               </div>
-              <div className="form-input">
-                <div className="form-input-field">
-                  <button onClick={registryHandler}>Register</button>
-                </div>
+              <div className={emailInputClasses}>
+                <input
+                  type="text"
+                  onChange={onChangeEmailName}
+                  onBlur={onBlurEmailName}
+                  value={email}
+                />
+              </div>
+            </div>
+            <div className="form-input">
+              <div
+                className={isDisabled ? "disabled-button" : "form-input-field"}
+              >
+                <button onClick={registryHandler}>Register</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
+    </div>
+  );
 }
-export default registryForm
+export default RegistryForm;

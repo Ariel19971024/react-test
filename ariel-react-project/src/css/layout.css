@@ -218,6 +218,9 @@ margin: 0;
     line-height:22.4px;
     color:#4A4A4A;
 }
+.form-title-area{
+    display:flex;
+}
 .required-field .form-input-title::before{
     content: "*";
     color:#E60012;
@@ -225,7 +228,8 @@ margin: 0;
     font-size: 0.75rem;
 }
 .field-error{
-    margin-top: 5px;
+    margin-top: 2px;
+    margin-left: 8px;
     font-size: 1rem;
     color: #f95a67;
 }
