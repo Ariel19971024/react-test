@@ -1,10 +1,12 @@
 import { postFavourite } from "../../api/api.js";
 import Validation from "../../common/Validation.js";
-import React ,{useState} from 'react';
+import React, { useState, useEffect } from "react";
 const isNotEmpty = (value) => value.trim() !== "";
 function RegistryForm(props) {
-  const { topics,loading } = props;
+  const { topics, loading } = props;
   const [topicVal, setTopicVal] = useState("");
+  const isLogin = sessionStorage.getItem("token");
+  useEffect(() => {}, [isLogin]);
   const {
     value: fname,
     isValid: nameIsValid,
@@ -38,7 +40,8 @@ function RegistryForm(props) {
   const emailInputClasses = `form-input-field ${
     emailError ? "error-input" : ""
   }`;
-  const isDisabled=(nameIsValid && lastNameIsValid && emailIsValid)?false:true; 
+  const isDisabled =
+    nameIsValid && lastNameIsValid && emailIsValid ? false : true;
   const topicDdl = (() => {
     return topics.map((card) => {
       return {
@@ -50,21 +53,21 @@ function RegistryForm(props) {
   const registryHandler = async () => {
     try {
       loading.open();
+      window.scrollTo({ top: 0,left: 0 ,behavior: "smooth" });
       let url = `/me/user/favourite/post-analysis/${topicVal}`;
       await postFavourite(url);
     } catch (e) {
       console.log(e);
-    }finally{
-      window.scrollTo({top:424,behavior:'smooth'})
+    } finally {
       clearData();
       loading.close();
     }
   };
-  const clearData=()=>{
+  const clearData = () => {
     resetName();
     resetlastName();
     resetEmail();
-  }
+  };
   return (
     <div className="content-registry">
       <div className="registry-area">
@@ -85,8 +88,12 @@ function RegistryForm(props) {
             <div className="form-input">
               <div className="form-input-title">Topic</div>
               <div className="form-input-field">
-                <select  onChange={(e)=>{setTopicVal(e.target.value)}}>
-                  <option value="" >choose one</option>
+                <select
+                  onChange={(e) => {
+                    setTopicVal(e.target.value);
+                  }}
+                >
+                  <option value="">choose one</option>
                   {topicDdl.map((option, index) => {
                     return (
                       <option value={option.value} key={`option-${index}`}>
@@ -154,12 +161,21 @@ function RegistryForm(props) {
               <div
                 className={isDisabled ? "disabled-button" : "form-input-field"}
               >
-                <button onClick={registryHandler}>Register</button>
+                <button onClick={registryHandler} disabled={isDisabled}>Register</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {!isLogin && (
+        <div className="form-mask">
+          <div className="mask-icon">
+            <span className="material-icons" title="icon-key">
+              vpn_key
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
