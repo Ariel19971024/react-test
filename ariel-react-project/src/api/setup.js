@@ -15,7 +15,6 @@ service.interceptors.request.use(
 )
 service.interceptors.response.use(
     res=>{
-        console.log(res)
         return res;
     },
     err=>{

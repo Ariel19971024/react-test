@@ -53,7 +53,7 @@ function RegistryForm(props) {
   const registryHandler = async () => {
     try {
       loading.open();
-      window.scrollTo({ top: 0,left: 0 ,behavior: "smooth" });
+      window.scrollTo(0,0);
       let url = `/me/user/favourite/post-analysis/${topicVal}`;
       await postFavourite(url);
     } catch (e) {

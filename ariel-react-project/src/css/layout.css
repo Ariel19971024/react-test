@@ -375,7 +375,26 @@
     padding: auto;
   }
 }
-@media (max-width: 821px) {
+@media (max-width: 825px) {
+    .content-informations {
+      height: 1020px;
+    }
+    .cards-group {
+      justify-content: center;
+    }
+    .card-item {
+        width: 270px;
+        height: 260px;
+      }
+    .no-icon-class {
+      padding: auto;
+    }
+    .card-item-details-bottom {
+        height: 20px;
+        margin-top: 0px;
+      }
+}
+@media (max-width: 687px) {
   .content-informations {
     height: 1700px;
   }

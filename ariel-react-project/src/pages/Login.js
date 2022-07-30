@@ -1,5 +1,4 @@
 import { auth } from "../api/api.js";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function Login(props) {
@@ -15,7 +14,7 @@ function Login(props) {
   const changeHandler = (e) => {
     setErrorMsg(false);
     const field = e.target.getAttribute("field");
-    setFormData({ ...formData, ...{ [field]: e.target.value } });
+    setFormData({ ...formData, [field]: e.target.value });
   };
   const loginHandler = async () => {
     try {
@@ -26,9 +25,6 @@ function Login(props) {
       loadingHandler.open();
       let res = await auth(body);
       sessionStorage.setItem("token", `bearer ${res.data.auth.access_token}`);
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `bearer ${res.data.auth.access_token}`;
       navigate("/");
     } catch (e) {
       setErrorMsg(true);
